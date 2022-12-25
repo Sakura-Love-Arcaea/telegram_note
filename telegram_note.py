@@ -1,6 +1,5 @@
 import glob
 import os
-import re
 from telegram.ext import *
 home = {'home': '/Users/lvjiayao/PycharmProjects/SakuraLoveArcaea_bot_2',
         'L': '/Users/lvjiayao/PycharmProjects/Live_Fast_Die_Young'}
@@ -18,14 +17,10 @@ def read_(update, folder=os.getcwd()):
         os.chdir(folder)
     with open('text.txt', 'rt', encoding='utf-8') as txt:
         fin = txt.read()
-        update.message.reply_text(fin)
-
-
-
-
-
-
-
+        if fin == '':
+            update.message.reply_text('此檔案是空的')
+        else:
+            update.message.reply_text(fin)
 
 
 def help(update, context):
@@ -67,10 +62,6 @@ def read(update, context):
         read_(update)
 
 
-
-
-
-
 def jump(update, context):
     test(update)
     if len(context.args) != 0:
@@ -101,13 +92,7 @@ def have(update, context):
         update.message.reply_text('沒有喔')
 
 
-def reply(update, context):
-    user_input = update.message.text
-    if re.findall('屌|on9|戇鳩|撚|傻閪', user_input):
-        update.message.reply_text('講乜撚嘢粗口啊屌你')
-    if re.findall('讓我看看', user_input):
-        update.message.reply_text(f'不要啊{update.message.chat.username}哥')
-    test(update)
+
 
 
 bot = Updater(token=TOKEN, use_context=True)
@@ -118,6 +103,6 @@ disp.add_handler(CommandHandler("jump", jump))
 disp.add_handler(CommandHandler("read", read))
 disp.add_handler(CommandHandler("note", note))
 disp.add_handler(CommandHandler("have", have))
-disp.add_handler(MessageHandler(Filters.text, reply))
+
 bot.start_polling()
 bot.idle()

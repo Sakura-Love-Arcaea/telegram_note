@@ -91,7 +91,8 @@ def have(update, context):
     else:
         update.message.reply_text('沒有喔')
 
-
+def say(update, context):
+    update.message.reply_test('OK')
 
 
 
@@ -103,6 +104,7 @@ disp.add_handler(CommandHandler("jump", jump))
 disp.add_handler(CommandHandler("read", read))
 disp.add_handler(CommandHandler("note", note))
 disp.add_handler(CommandHandler("have", have))
+disp.add_handler(CommandHandler("say", say))
 
 bot.start_polling()
 bot.idle()
